@@ -2,6 +2,7 @@
 #define SCC_H
 
 #include <vector>
+#include <stack>
 #include "adjacency.h"
 #include "dfs.h"
 
@@ -32,22 +33,21 @@ SCC::SCC(ADJACENCY a)
 	count = 0;
 
 	DFS dfsT = *new DFS(a);
-	std::vector <int> postOrder = dfsT.getPostOrder();
+	std::stack <int> postOrder = dfsT.getPostOrder();
 
 	std::vector <LIST *> reverseA = a.getReverseList();
 
 	while (!postOrder.empty())
 	{
-		if (visited[postOrder.back()] == 0)
+		if (visited[postOrder.top()] == 0)
 		{
-			dfs(reverseA, postOrder.back());
+			dfs(reverseA, postOrder.top());
 
 			count++;
 		}
 
-		postOrder.pop_back();
+		postOrder.pop();
 	}
-
 }
 
 void SCC::dfs(std::vector <LIST *> a, int x)
@@ -61,9 +61,9 @@ void SCC::dfs(std::vector <LIST *> a, int x)
 
 	for (LIST *node = adj; node != NULL; node = node->next)
 	{
-		if (visited[node->getValue().getValue()] == 0)
+		if (visited[node->getDATA().getValue()] == 0)
 		{
-			dfs(a, node->getValue().getValue());
+			dfs(a, node->getDATA().getValue());
 		}
 	}
 }

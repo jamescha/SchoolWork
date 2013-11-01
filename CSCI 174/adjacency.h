@@ -1,9 +1,9 @@
+#ifndef ADJACENCY_H
+#define ADJACENCY_H
+
 #include <vector>
 #include "graph.h"
 #include "data.h"
-
-#ifndef ADJACENCY_H
-#define ADJACENCY_H
 
 class LIST{
 	
@@ -11,10 +11,10 @@ public:
 	LIST();
 	LIST(LIST *, DATA);
 	LIST *next;
-	DATA getValue();
+	DATA getDATA();
 
 private:
-	DATA value;
+	DATA data;
 
 
 };
@@ -22,17 +22,17 @@ private:
 LIST::LIST()
 {
 	next=NULL;
-	value.setValue(0);
+	data.setValue(0);
 }
 
 LIST::LIST(LIST *p, DATA x)
 {
 	next = p;
-	value = x;
+	data = x;
 }
 
-DATA LIST::getValue(){
-	return value;
+DATA LIST::getDATA(){
+	return data;
 }
 
 class ADJACENCY
@@ -69,7 +69,7 @@ std::vector <LIST *> ADJACENCY::getReverseList()
 { 
 	std::vector <LIST *> temp;
 
-	for (int x = getList().size()-1; x > 0; x--)
+	for (int x = getList().size()-1; x >= 0; x--)
 	{
 		temp.push_back(getList()[x]);
 	}
@@ -157,7 +157,7 @@ void ADJACENCY::printList()
 		current = adjacencyList[i];
 		while (current != NULL)
 		{
-			cout << current -> getValue().getValue() << " ";
+			cout << current -> getDATA().getValue() << " ";
 			current = current -> next;
 		}
 

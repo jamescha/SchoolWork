@@ -4,6 +4,7 @@
 #include "graph.h"
 #include "adjacency.h"
 #include <vector>
+#include <stack>
 
 #define WHITE 0
 #define GRAY 1
@@ -19,7 +20,7 @@ public:
 	void search(ADJACENCY g);
 	int graphSize;
 
-	std::vector <int> getPostOrder();
+	std::stack <int> getPostOrder();
 	void visit(ADJACENCY g, int v);
 
 private:
@@ -27,7 +28,7 @@ private:
 	std::vector <int> parent;
 	std::vector <int> discovered;
 	std::vector <int> finished;
-	std::vector <int> postOrder;
+	std::stack <int> postOrder;
 
 };
 
@@ -39,6 +40,8 @@ DFS::DFS(ADJACENCY g)
 	parent.resize(graphSize);
 	discovered.resize(graphSize);
 	finished.resize(graphSize);
+
+	search(g);
 }
 
 DFS::~DFS()
@@ -76,11 +79,11 @@ void DFS::visit(ADJACENCY g, int i)
 
 	for (LIST *node = adj; node != NULL; node = node->next)
 	{
-		if (color[node->getValue().getValue()] == 0)
+		if (color[node->getDATA().getValue()] == 0)
 		{
-			parent[node->getValue().getValue()] = i;
+			parent[node->getDATA().getValue()] = i;
 
-			int x = node->getValue().getValue();
+			int x = node->getDATA().getValue();
 			visit(g, x);
 		}
 	}
@@ -90,11 +93,11 @@ void DFS::visit(ADJACENCY g, int i)
 	time++;
 	finished[i] = time;
 
-	postOrder.push_back(i);
+	postOrder.push(i);
 
 }
 
-std::vector <int> DFS::getPostOrder()
+std::stack <int> DFS::getPostOrder()
 {
 	return postOrder;
 }
