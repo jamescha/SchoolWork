@@ -1,0 +1,13 @@
+package sim;
+
+import java.io.Console;
+
+public class SimulationProgramming2 {
+	public static void main(){
+		Console c = System.console();
+	}
+	
+	private static void menu(){
+		
+	}
+}
